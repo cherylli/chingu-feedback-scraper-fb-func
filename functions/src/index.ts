@@ -7,7 +7,17 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
+import {onRequest} from "firebase-functions/v2/https";
+import {runScraper} from "./scraper";
 
+exports.scrape = onRequest({
+  memory: "512MiB",
+  region: "australia-southeast1",
+}, async (req, res) => {
+  const feedback = await runScraper();
+  res.send(feedback);
+});
+/*
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const functions = require("firebase-functions");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -24,3 +34,4 @@ exports.scrape = functions
     console.log(feedback);
     res.send(feedback);
   });
+*/

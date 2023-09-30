@@ -1,25 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const puppeteer = require("puppeteer");
+import puppeteer from "puppeteer";
 
 type Row = {
   [key: string]: string
 }
 
-const runScraper = async () => {
+export const runScraper = async () => {
   const browser = await puppeteer.launch({
     headless: true,
-    timeout: 20000,
-    ignoreHTTPSErrors: true,
-    slowMo: 0,
-    args: [
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--disable-setuid-sandbox",
-      "--no-first-run",
-      "--no-sandbox",
-      "--no-zygote",
-      "--window-size=1280,720",
-    ],
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
   await page.goto("https://github.com/chingu-voyages/soloproject-evaluation/blob/main/README.md");
@@ -59,10 +47,4 @@ const runScraper = async () => {
   return {categories: allTables};
 };
 
-/*
-runScraper().then((res)=>{
-  console.log(res);
-});
-*/
-exports.runScraper = runScraper;
 
