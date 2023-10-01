@@ -32,7 +32,7 @@ export const runScraper = async () => {
       for (let i = 0; i < data.length; i = i + col) {
         const row: Row = {};
         for (let j = 0; j < col; j++) {
-          row[headers[j]] = data[i + j];
+          row[headers[j].toLowerCase()] = data[i + j];
         }
         rows.push(row);
       }
