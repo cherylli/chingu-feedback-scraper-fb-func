@@ -15,3 +15,24 @@ The function does 4 things
    https://chingu-soloproject-evaluation-app.vercel.app/
    https://github.com/cherylli/chingu-soloproject-evaluation-app
 4. Returns the scrape results (in JSON)
+
+
+Github workflow to initiate scraping when the `soloproject-evalution` repo is updated
+```
+on:
+  push
+jobs:
+  trigger-firebase-functions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger Firebase Functions
+      id: getRequest
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: ${{ secrets.FUNCTION_URL }}
+        method: 'GET'
+        timeout: 50000
+    - name: Show Response
+      run: |
+        echo ${{ steps.getRequest.outputs.response }}
+```
